@@ -19,7 +19,6 @@ class AuthService {
     required String password,
     required String name,
   }) async {
-    late final currentContext = context;
     try {
       User user = User(
           id: '',
@@ -40,15 +39,15 @@ class AuthService {
       );
       httpErrorHandling(
         response: res,
-        context: currentContext,
+        context: context,
         onSuccess: () {
-          showSnackBar(currentContext,
-              "Account created! Login with the same credentials");
+          showSnackBar(
+              context, "Account created! Login with the same credentials");
         },
       );
       // print(res.body);
     } catch (e) {
-      showSnackBar(currentContext, e.toString());
+      showSnackBar(context, e.toString());
     }
   }
 
@@ -58,7 +57,6 @@ class AuthService {
     required String email,
     required String password,
   }) async {
-    late final currentContext = context;
     try {
       http.Response res = await http.post(
         Uri.parse('$uri/api/signin'),
@@ -72,23 +70,17 @@ class AuthService {
       );
       httpErrorHandling(
         response: res,
-        context: currentContext,
+        context: context,
         onSuccess: () async {
           SharedPreferences prefs = await SharedPreferences.getInstance();
           Provider.of<UserProvider>(context, listen: false).setUSer(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)["token"]);
           Navigator.pushNamedAndRemoveUntil(
               context, HomeScreen.routeName, (route) => false);
-
-          // Navigator.pushNamedAndRemoveUntil(
-          //   context,
-          //   BottomBar.routeName,
-          //   (route) => false,
-          // );
         },
       );
     } catch (e) {
-      showSnackBar(currentContext, e.toString());
+      showSnackBar(context, e.toString());
     }
   }
 
@@ -96,30 +88,29 @@ class AuthService {
   void getUserData(
     BuildContext context,
   ) async {
-    // late final currentContext = context;
     try {
-      // http.Response res = await http.post(
-      //   Uri.parse('$uri/api/signin'),
-      //   body: jsonEncode({
-      //     'email': email,
-      //     'password': password,
-      //   }),
-      //   headers: <String, String>{
-      //     'Content-Type': 'application/json; charset=UTF-8',
-      //   },
-      // );
-      // httpErrorHandling(
-      //   response: res,
-      //   context: currentContext,
-      //   onSuccess: () async {
-      //     SharedPreferences prefs = await SharedPreferences.getInstance();
-      //     Provider.of<UserProvider>(context, listen: false).setUSer(res.body);
-      //     await prefs.setString('x-auth-token', jsonDecode(res.body)["token"]);
-      //     Navigator.pushNamedAndRemoveUntil(
-      //         context, HomeScreen.routeName, (route) => false);
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString("x-auth-token");
+      if (token == null) {
+        prefs.setString("x-auth-token", '');
+      }
+      var tokenRes = await http.post(Uri.parse('$uri/api/tokenisvalid'),
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'x-auth-token': token!
+          });
+      var response = jsonDecode(tokenRes.body);
+      if (response == true) {
+        // get the data
+        http.Response userRes = await http.get(Uri.parse('$uri/api/getuser'),
+            headers: <String, String>{
+              'Content-Type': 'application/json; charset=UTF-8',
+              'x-auth-token': token
+            });
 
-      //   },
-      // );
+        var userProvider = Provider.of<UserProvider>(context, listen: false);
+        userProvider.setUSer(userRes.body);
+      }
     } catch (e) {
       showSnackBar(context, e.toString());
     }

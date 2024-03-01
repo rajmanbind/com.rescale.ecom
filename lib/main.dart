@@ -1,6 +1,7 @@
 import 'package:dalvi/constants/global_variable.dart';
 import 'package:dalvi/features/auth/screen/auth_screen.dart';
 import 'package:dalvi/features/auth/services/auth_service.dart';
+import 'package:dalvi/features/home/screens/home_screens.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:dalvi/router.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,7 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
+    authService.getUserData(context);
   }
 
   @override
@@ -45,7 +47,9 @@ class _MyAppState extends State<MyApp> {
             backgroundColor: GlobalVariables.secondaryColor),
       ),
       onGenerateRoute: (settings) => generateRoute(settings),
-      home: const AuthScreen(),
+      home: Provider.of<UserProvider>(context).user.token.isNotEmpty
+          ? const HomeScreen()
+          : const AuthScreen(),
     );
   }
 }

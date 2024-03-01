@@ -19,21 +19,17 @@ class AuthController {
         const genSalt = await bcrypt.genSalt(12);
         const hashPashword = await bcrypt.hash(password, genSalt);
         let userDoc = new UserModel({
-          name: name,
-          email: email,
+          name,
+          email,
           password: hashPashword,
         });
         userDoc = await userDoc.save();
 
-        // return res.status(200).json({ msg: "Sign Up Successfully!" });
         res.json(userDoc);
       }
     } else {
       return res.json({ msg: "Required All field" });
     }
-    // post  that data in database
-    // return that data to the user
-    // res.json({ msg: "req.body" });
   };
 
   //Sign In Route
@@ -64,8 +60,31 @@ class AuthController {
         return res.status(400).json({ msg: "All Field Required!" });
       }
     } catch (error) {
-      res.status(500).json({ d: error.message });
+      res.status(500).json({ error: error.message });
     }
+  };
+
+  static tokenValidation = async (req, res) => {
+    try {
+      const token = req.header("x-auth-token");
+      if (!token) return res.json(false);
+
+      const verified = jwt.verify(token, "passwordKey");
+
+      if (!verified) return res.json(false);
+
+      const user = await UserModel.findById(verified.id);
+      if (!user) return res.json(false);
+
+      res.json(true);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  };
+  static getUser = async (req, res) => {
+    // console.log(req)
+    const user = await UserModel.findById(req.user);
+    res.json({ ...user._doc, token: req.token });
   };
 }
 
