@@ -1,9 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:convert';
 
+import 'package:dalvi/common/widgets/bottom_bar.dart';
 import 'package:dalvi/constants/error_handling.dart';
 import 'package:dalvi/constants/global_variable.dart';
 import 'package:dalvi/constants/utils.dart';
-import 'package:dalvi/features/home/screens/home_screens.dart';
+// import 'package:dalvi/features/home/screens/home_screens.dart';
 import 'package:dalvi/models/user.dart';
 import 'package:dalvi/providers/user_provider.dart';
 import 'package:flutter/material.dart';
@@ -21,14 +24,15 @@ class AuthService {
   }) async {
     try {
       User user = User(
-          id: '',
-          name: name,
-          password: password,
-          email: email,
-          address: '',
-          type: '',
-          // cart: [],
-          token: '');
+        id: '',
+        name: name,
+        password: password,
+        email: email,
+        address: '',
+        type: '',
+        // cart: [],
+        token: '',
+      );
 
       http.Response res = await http.post(
         Uri.parse('$uri/api/signup'),
@@ -42,7 +46,9 @@ class AuthService {
         context: context,
         onSuccess: () {
           showSnackBar(
-              context, "Account created! Login with the same credentials");
+            context,
+            "Account created! Login with the same credentials",
+          );
         },
       );
       // print(res.body);
@@ -76,7 +82,7 @@ class AuthService {
           Provider.of<UserProvider>(context, listen: false).setUSer(res.body);
           await prefs.setString('x-auth-token', jsonDecode(res.body)["token"]);
           Navigator.pushNamedAndRemoveUntil(
-              context, HomeScreen.routeName, (route) => false);
+              context, BottomBar.routeName, (route) => false);
         },
       );
     } catch (e) {

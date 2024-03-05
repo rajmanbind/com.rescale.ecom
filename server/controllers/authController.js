@@ -7,7 +7,7 @@ class AuthController {
 
   static userSignUp = async (req, res) => {
     // get the data from client
-    const { name, email, password } = req.body;
+    const { name, email, password, type, address } = req.body;
 
     if (name && email && password) {
       const existingUser = await UserModel.findOne({ email: email });
@@ -22,6 +22,8 @@ class AuthController {
           name,
           email,
           password: hashPashword,
+          type,
+          address,
         });
         userDoc = await userDoc.save();
 
@@ -84,6 +86,7 @@ class AuthController {
   static getUser = async (req, res) => {
     // console.log(req)
     const user = await UserModel.findById(req.user);
+    // console.log(user)
     res.json({ ...user._doc, token: req.token });
   };
 }
