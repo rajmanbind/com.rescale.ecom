@@ -1,6 +1,7 @@
 const Product = require("../models/productModle.js");
 
 class AdminController {
+  // add the product
   static addProduct = async (req, res) => {
     try {
       const { name, description, images, quantity, price, category } = req.body;
@@ -20,7 +21,7 @@ class AdminController {
       res.status(500).json({ error: e.message });
     }
   };
-
+  // get all product
   static getAllProduct = async (req, res) => {
     try {
       const products = await Product.find({});
@@ -29,11 +30,12 @@ class AdminController {
       res.status(500).json({ error: e.message });
     }
   };
+
+  // delete the product
   static deleteProduct = async (req, res) => {
     try {
       const { id } = req.body;
-      let product = await Product.findByIdAndDelete(id);
-      // product = await product.save();
+      await Product.findByIdAndDelete(id);
       res.send("All went well!");
     } catch (error) {
       res.status(500).json({ error: e.message });
