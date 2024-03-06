@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:cloudinary_public/cloudinary_public.dart';
 import 'package:dalvi/constants/error_handling.dart';
-import 'package:dalvi/constants/global_variable.dart';
+import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/constants/utils.dart';
 import 'package:dalvi/models/product.dart';
 import 'package:dalvi/providers/user_provider.dart';

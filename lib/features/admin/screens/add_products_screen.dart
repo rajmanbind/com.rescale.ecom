@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:dalvi/common/widgets/custom_button.dart';
 import 'package:dalvi/common/widgets/custom_textField.dart';
-import 'package:dalvi/constants/global_variable.dart';
+import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/constants/utils.dart';
 import 'package:dalvi/features/admin/services/admin_services.dart';
 import 'package:dotted_border/dotted_border.dart';

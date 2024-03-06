@@ -1,5 +1,5 @@
 import 'package:dalvi/common/widgets/bottom_bar.dart';
-import 'package:dalvi/constants/global_variable.dart';
+import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/features/admin/screens/admin_screen.dart';
 import 'package:dalvi/features/auth/screen/auth_screen.dart';
 import 'package:dalvi/features/auth/services/auth_service.dart';

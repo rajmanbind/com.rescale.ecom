@@ -1,5 +1,5 @@
 // import 'package:dalvi/constants/global_variable.dart';
-import 'package:dalvi/constants/global_variable.dart';
+import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/features/home/widgets/address_box.dart';
 import 'package:dalvi/features/home/widgets/carousel_image.dart';
 import 'package:dalvi/features/home/widgets/top_categories.dart';

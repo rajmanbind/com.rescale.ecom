@@ -1,4 +1,4 @@
-import 'package:dalvi/constants/global_variable.dart';
+import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/features/account/widgets/below_app_bar.dart';
 import 'package:dalvi/features/account/widgets/orders.dart';
 import 'package:dalvi/features/account/widgets/top_buttons.dart';

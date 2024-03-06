@@ -1,6 +1,6 @@
 import 'package:dalvi/common/widgets/custom_button.dart';
 import 'package:dalvi/common/widgets/custom_textField.dart';
-import 'package:dalvi/constants/global_variable.dart';
+import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/features/auth/services/auth_service.dart';
 import 'package:flutter/material.dart';
 

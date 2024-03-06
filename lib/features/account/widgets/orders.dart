@@ -1,4 +1,4 @@
-import "package:dalvi/constants/global_variable.dart";
+import "package:dalvi/constants/global_variables.dart";
 import "package:dalvi/features/account/widgets/single_product.dart";
 import "package:flutter/material.dart";
 

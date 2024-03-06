@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_final_fields
 
-import 'package:dalvi/constants/global_variable.dart';
+import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/features/account/screens/account_screen.dart';
 import 'package:dalvi/features/home/screens/home_screens.dart';
 import 'package:flutter/material.dart';

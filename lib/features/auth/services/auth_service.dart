@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:dalvi/common/widgets/bottom_bar.dart';
 import 'package:dalvi/constants/error_handling.dart';
-import 'package:dalvi/constants/global_variable.dart';
+import 'package:dalvi/constants/global_variables.dart';
 import 'package:dalvi/constants/utils.dart';
 // import 'package:dalvi/features/home/screens/home_screens.dart';
 import 'package:dalvi/models/user.dart';
